@@ -15,15 +15,19 @@ public class SimpleBandit implements IAlgorithm<IScoreListener> {
     private static Logger log = (Logger) LoggerFactory.getLogger(SimpleBandit.class);
     private IScoreListener listener;
     private int timesteps;
+    private int state;
+    private int numActions;
+    private int numStates;
 
-    public SimpleBandit(int timesteps) {
+    public SimpleBandit(int timesteps, int state, int numActions, int numStates) {
         this.timesteps = timesteps;
+        this.state = state;
+        this.numActions = numActions;
+        this.numStates = numStates;
     }
 
     @Override
     public void execute() {
-        int numActions = 10;
-        int numStates = 10;
         Random r = new Random();
         Bandit bandit = new Bandit(numActions, numStates);
         double epsilon = 0.01;
@@ -33,8 +37,6 @@ public class SimpleBandit implements IAlgorithm<IScoreListener> {
         INDArray N_a;
         Q_a = Nd4j.zeros(numActions, 1);
         N_a = Nd4j.zeros(numActions, 1);
-
-        int state = bandit.reset();
 
         while (count < timesteps) {
             log.info("Timestep: " + (count++));

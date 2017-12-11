@@ -24,7 +24,7 @@ public class BanditTestCase extends TestCase {
     }
 
     public void testAlgorithm(){
-        SimpleBandit simpleBandit = new SimpleBandit(100);
+        SimpleBandit simpleBandit = new SimpleBandit(100, 1, 10, 10);
         simpleBandit.addScoreListener(val -> log.info(val.toString()));
         simpleBandit.execute();
     }
