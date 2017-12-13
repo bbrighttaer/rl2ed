@@ -33,7 +33,7 @@ public class Bandit implements MDP<Integer, Integer, BanditActions> {
         Random r = new Random();
         for (int s = 0; s < stateSize; s++) {
             for (int a = 0; a < arms; a++) {
-                this.stateActionVals.putScalar(new int[]{s, a}, r.nextGaussian());
+                this.stateActionVals.putScalar(new int[]{s, a}, r.nextDouble());
             }
         }
     }
@@ -52,22 +52,18 @@ public class Bandit implements MDP<Integer, Integer, BanditActions> {
         }
     }
 
-    @Override
     public StateSpace<INDArray> getStateSpace() {
         return banditStates;
     }
 
-    @Override
     public BanditActions getActionSpace() {
         return banditActions;
     }
 
-    @Override
     public Integer reset() {
         return this.banditStates.getStateSpace().getInt(0, ((int) (Math.random() * stateSize)));
     }
 
-    @Override
     public TransitionReply<Integer> doTransition(Integer state, Integer action) {
         INDArray row = transProbMatrix.getRow(state);
         int s_prime = 0;
@@ -82,17 +78,14 @@ public class Bandit implements MDP<Integer, Integer, BanditActions> {
         return new BanditTransitionReply(s_prime, reward);
     }
 
-    @Override
     public TransitionReply<Integer> doTransition(Integer action) {
         return doTransition(0, action);
     }
 
-    @Override
     public Integer getRandomAction(Integer state) {
         return this.banditActions.randomAction();
     }
 
-    @Override
     public Integer getArgMaxQ(Integer state) {
         INDArray row = stateActionVals.getRow(state);
         int action = 0;
@@ -107,7 +100,6 @@ public class Bandit implements MDP<Integer, Integer, BanditActions> {
         return action;
     }
 
-    @Override
     public double getMaxQ(Integer state) {
         return stateActionVals.getRow(state).maxNumber().doubleValue();
     }

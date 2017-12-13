@@ -17,6 +17,18 @@
             </roles>
         </developer>
     </developers>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <properties>
         <logback.version>1.2.3</logback.version>
@@ -24,6 +36,7 @@
         <nd4j.version>0.9.1</nd4j.version>
         <nd4j.cpu.backend>nd4j-native-platform</nd4j.cpu.backend>
         <nd4j.gpu.backend>nd4j-cuda-7.5-platform</nd4j.gpu.backend>
+        <jfreechart.version>1.0.19</jfreechart.version>
     </properties>
 
     <dependencies>
@@ -41,6 +54,11 @@
             <groupId>org.nd4j</groupId>
             <artifactId>${nd4j.cpu.backend}</artifactId>
             <version>${nd4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>${jfreechart.version}</version>
         </dependency>
     </dependencies>
 
